@@ -1,0 +1,54 @@
+
+{% extends "base.html" %}
+
+{% block title %}About Us | KisanSetu AI{% endblock %}
+
+{% block content %}
+<div class="page-content">
+
+    <section class="card" style="padding: 40px; text-align: center; background: #f0fdf4;">
+        <div style="font-size: 55px;">🌱</div>
+        <h1 style="color: #198754;">About KisanSetu AI</h1>
+        <p style="max-width: 750px; margin: 16px auto; line-height: 1.8; color: #64748b;">
+            KisanSetu AI is a digital agricultural marketplace designed
+            to connect farmers and buyers on one platform. Our goal is to
+            make product listing, product discovery and order management
+            simpler through technology.
+        </p>
+    </section>
+
+    <div class="card-grid" style="margin-top: 28px;">
+
+        <div class="card">
+            <div style="font-size: 35px;">🎯</div>
+            <h2>Our Mission</h2>
+            <p>To simplify agricultural trading by providing farmers and buyers with an accessible digital platform.</p>
+        </div>
+
+        <div class="card">
+            <div style="font-size: 35px;">🤝</div>
+            <h2>Our Vision</h2>
+            <p>To support stronger connections between agricultural producers and the people who purchase their products.</p>
+        </div>
+
+        <div class="card">
+            <div style="font-size: 35px;">💡</div>
+            <h2>Our Approach</h2>
+            <p>To use digital tools for product listings, marketplace browsing and organised order management.</p>
+        </div>
+
+    </div>
+
+    <div class="card" style="margin-top: 28px; text-align: center;">
+        <h2>One Platform, Two Communities</h2>
+        <p style="color: #64748b; line-height: 1.8;">
+            Farmers can list and manage their products, while buyers can
+            explore available produce and place orders through the marketplace.
+        </p>
+        <a href="{{ url_for('register') }}" class="btn btn-primary">
+            Join KisanSetu AI
+        </a>
+    </div>
+
+</div>
+{% endblock %}

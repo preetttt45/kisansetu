@@ -1,0 +1,95 @@
+
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard | KisanSetu AI{% endblock %}
+
+{% block content %}
+<div class="page-content">
+
+    <div class="page-header">
+        <h1>Admin Dashboard</h1>
+        <p>Monitor and manage your KisanSetu AI platform.</p>
+    </div>
+
+    <div class="welcome-section">
+        <h2>Welcome, {{ session["name"] }}! 👋</h2>
+        <p>Here is your platform's current overview.</p>
+    </div>
+
+    <div class="card-grid">
+
+        <div class="card">
+            <div class="stat-icon">👥</div>
+            <p>Total Users</p>
+            <h2 class="stat-value">{{ total_users }}</h2>
+            <span>Registered accounts</span>
+        </div>
+
+        <div class="card">
+            <div class="stat-icon">🌾</div>
+            <p>Farmers</p>
+            <h2 class="stat-value">{{ total_farmers }}</h2>
+            <span>Registered farmers</span>
+        </div>
+
+        <div class="card">
+            <div class="stat-icon">🛒</div>
+            <p>Buyers</p>
+            <h2 class="stat-value">{{ total_buyers }}</h2>
+            <span>Registered buyers</span>
+        </div>
+
+        <div class="card">
+            <div class="stat-icon">📦</div>
+            <p>Total Products</p>
+            <h2 class="stat-value">{{ total_products }}</h2>
+            <span>Listed products</span>
+        </div>
+
+        <div class="card">
+            <div class="stat-icon">📋</div>
+            <p>Total Orders</p>
+            <h2 class="stat-value">{{ total_orders }}</h2>
+            <span>Platform orders</span>
+        </div>
+
+    </div>
+
+    <div class="table-card">
+        <h2>System Overview</h2>
+        <p>A summary of activity across the platform.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Total Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total Users</td>
+                    <td>{{ total_users }}</td>
+                </tr>
+                <tr>
+                    <td>Farmers</td>
+                    <td>{{ total_farmers }}</td>
+                </tr>
+                <tr>
+                    <td>Buyers</td>
+                    <td>{{ total_buyers }}</td>
+                </tr>
+                <tr>
+                    <td>Products</td>
+                    <td>{{ total_products }}</td>
+                </tr>
+                <tr>
+                    <td>Orders</td>
+                    <td>{{ total_orders }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}

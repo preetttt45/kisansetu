@@ -1,0 +1,116 @@
+
+{% extends "base.html" %}
+
+{% block title %}Manage Orders | KisanSetu AI{% endblock %}
+
+{% block page_heading %}Incoming Orders{% endblock %}
+
+{% block content %}
+
+<div style="margin-bottom: 24px;">
+    <h1>Incoming Orders 🧾</h1>
+    <p style="color: #64748b;">
+        Review buyer orders and manage their status.
+    </p>
+</div>
+
+<div class="table-card">
+
+    {% if orders %}
+    <div style="overflow-x: auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Buyer</th>
+                    <th>Crop</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>#{{ order["id"] }}</td>
+
+                    <td>
+                        <strong>{{ order["buyer_name"] }}</strong>
+                    </td>
+
+                    <td>{{ order["crop_name"] }}</td>
+
+                    <td>{{ order["quantity"] }} kg</td>
+
+                    <td>₹{{ order["total_price"] }}</td>
+
+                    <td>
+                        <span class="badge">
+                            {{ order["status"] }}
+                        </span>
+                    </td>
+
+                    <td>
+                        {% if order["status"] == "Pending" %}
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+
+                            <form method="POST"
+                                  action="{{ url_for('update_order', order_id=order['id']) }}">
+                                <button
+                                    type="submit"
+                                    name="status"
+                                    value="Accepted"
+                                    class="btn btn-primary"
+                                >
+                                    Accept
+                                </button>
+                            </form>
+
+                            <form method="POST"
+                                  action="{{ url_for('update_order', order_id=order['id']) }}"
+                                  onsubmit="return confirm('Are you sure you want to reject this order?');">
+                                <button
+                                    type="submit"
+                                    name="status"
+                                    value="Rejected"
+                                    class="btn btn-danger"
+                                >
+                                    Reject
+                                </button>
+                            </form>
+
+                        </div>
+                        {% else %}
+                            <span style="color: #64748b;">
+                                No action available
+                            </span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% else %}
+    <div style="text-align: center; padding: 48px 20px;">
+        <div style="font-size: 44px;">📭</div>
+        <h2>No Incoming Orders</h2>
+        <p style="color: #64748b;">
+            New orders from buyers will appear here.
+        </p>
+    </div>
+    {% endif %}
+
+</div>
+
+<div style="margin-top: 20px;">
+    <a href="{{ url_for('farmer_dashboard') }}"
+       class="btn btn-secondary">
+        ← Back to Dashboard
+    </a>
+</div>
+
+{% endblock %}

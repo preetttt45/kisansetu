@@ -1,0 +1,83 @@
+
+{% extends "base.html" %}
+
+{% block title %}Contact Us | KisanSetu AI{% endblock %}
+
+{% block content %}
+<div class="page-content">
+
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h1>Contact Us</h1>
+        <p style="color: #64748b;">
+            Have a question or suggestion? We'd love to hear from you.
+        </p>
+    </div>
+
+    <div class="card-grid">
+
+        <div class="card">
+            <div style="font-size: 32px;">📩</div>
+            <h3>Send a Message</h3>
+            <p style="color: #64748b; line-height: 1.7;">
+                Use the form to share your question, feedback or suggestion
+                with the KisanSetu AI team.
+            </p>
+            {% if success %}
+                <div class="card" style="margin-bottom: 20px; background: #f0fdf4;">
+                    <p style="color: #198754;">
+                        ✅ Thank you! Your message has been received by this demo form.
+                    </p>
+                </div>
+            {% endif %}
+
+
+            <form method="POST" action="{{ url_for('contact') }}">
+
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input class="form-control" type="text"
+                           id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input class="form-control" type="email"
+                           id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea class="form-control" id="message"
+                              name="message" rows="5" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Send Message
+                </button>
+
+            </form>
+        </div>
+
+        <div class="card" style="background: #f0fdf4;">
+            <div style="font-size: 32px;">🌱</div>
+            <h2>Let's Connect</h2>
+            <p style="color: #64748b; line-height: 1.8;">
+                KisanSetu AI is designed to help farmers and buyers
+                connect through a digital agricultural marketplace.
+            </p>
+
+            <hr style="border: 0; border-top: 1px solid #d1fae5; margin: 24px 0;">
+
+            <h3>What can you contact us about?</h3>
+            <p>🌾 Farmer product listings</p>
+            <p>🛒 Marketplace and orders</p>
+            <p>💡 Feedback and suggestions</p>
+
+            <a href="{{ url_for('marketplace') }}" class="btn btn-secondary">
+                Explore Marketplace
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

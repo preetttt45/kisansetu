@@ -1,0 +1,149 @@
+
+{% extends "base.html" %}
+
+{% block title %}Marketplace | KisanSetu AI{% endblock %}
+
+{% block page_heading %}Agricultural Marketplace{% endblock %}
+
+{% block content %}
+
+<div style="margin-bottom: 28px;">
+    <h1>Fresh from Farmers 🌾</h1>
+    <p style="color: #64748b;">
+        Discover agricultural products and order directly from farmers.
+    </p>
+</div>
+
+{% if products %}
+
+<div class="table-card">
+    <div style="padding: 20px 20px 0;">
+        <h2>Available Products</h2>
+        <p style="color: #64748b;">
+            Check the available quantity before placing an order.
+        </p>
+    </div>
+
+    <div style="overflow-x: auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Farmer</th>
+                    <th>Crop</th>
+                    <th>Available Quantity</th>
+                    <th>Price / kg</th>
+                    <th>Quality</th>
+                    <th>Location</th>
+                    <th>Place Order</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>
+                        <strong>{{ product["farmer_name"] }}</strong>
+                    </td>
+
+                    <td>{{ product["crop_name"] }}</td>
+
+                    <td>{{ product["quantity"] }} kg</td>
+
+                    <td>₹{{ product["price"] }}</td>
+
+                    <td>
+                        <span class="badge">
+                            {{ product["quality"] }}
+                        </span>
+                    </td>
+
+                    <td>{{ product["location"] }}</td>
+
+                    <td>
+                        <form
+                            method="POST"
+                            action="{{ url_for('place_order', product_id=product['id']) }}"
+                        >
+                            <div class="form-group">
+                                <label for="quantity-{{ product['id'] }}">
+                                    Quantity (kg)
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="quantity-{{ product['id'] }}"
+                                    name="quantity"
+                                    class="form-control"
+                                    min="0.01"
+                                    max="{{ product['quantity'] }}"
+                                    step="0.01"
+                                    placeholder="Enter kg"
+                                    required
+                                >
+                            </div>
+                            
+<div class="form-group">
+    <label for="delivery-method-{{ product['id'] }}">
+        Delivery Method
+    </label>
+
+    <select
+        id="delivery-method-{{ product['id'] }}"
+        name="delivery_method"
+        class="form-control"
+        required
+    >
+        <option value="Delivery">Delivery Required</option>
+        <option value="Self Pickup">Self Pickup</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="delivery-address-{{ product['id'] }}">
+        Delivery Address
+    </label>
+
+    <textarea
+        id="delivery-address-{{ product['id'] }}"
+        name="delivery_address"
+        class="form-control"
+        rows="2"
+        placeholder="Enter delivery address (for delivery orders)"
+    ></textarea>
+</div>
+
+                            
+
+
+                            <button type="submit" class="btn btn-primary">
+                                Place Order
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% else %}
+
+<div class="card" style="text-align: center; padding: 48px 20px;">
+    <div style="font-size: 48px;">🌱</div>
+    <h2>No Products Available</h2>
+    <p style="color: #64748b;">
+        Farmers haven't listed any products yet. Please check again later.
+    </p>
+</div>
+
+{% endif %}
+
+<div style="margin-top: 20px;">
+    <a href="{{ url_for('buyer_dashboard') }}"
+       class="btn btn-secondary">
+        ← Back to Dashboard
+    </a>
+</div>
+
+{% endblock %}

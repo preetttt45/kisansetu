@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}KisanSetu AI{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <a href="{{ url_for('home') }}" class="brand">
+            <span class="brand-icon">🌱</span>
+            <span>KisanSetu AI</span>
+        </a>
+
+        <div>
+            <div class="nav-label">Workspace</div>
+
+            <nav class="nav-links">
+                {% if session.get('role') == 'farmer' %}
+                    <a href="{{ url_for('farmer_dashboard') }}">🏠 Dashboard</a>
+                    <a href="{{ url_for('add_product') }}">➕ Add Product</a>
+                    <a href="{{ url_for('my_products') }}">📦 My Products</a>
+                    <a href="{{ url_for('farmer_orders') }}">🧾 Orders</a>
+
+                {% elif session.get('role') == 'buyer' %}
+                    <a href="{{ url_for('buyer_dashboard') }}">🏠 Dashboard</a>
+                    <a href="{{ url_for('marketplace') }}">🛒 Marketplace</a>
+
+                {% elif session.get('role') == 'admin' %}
+                    <a href="{{ url_for('admin_dashboard') }}">🏠 Dashboard</a>
+                    <a href="{{ url_for('admin_users') }}">User Management</a>
+                    <a href="{{ url_for('admin_products') }}">Product Management</a>
+                    <a href="{{ url_for('admin_orders') }}">Order Management</a>
+
+                {% endif %}
+            </nav>
+        </div>
+
+        <div>
+            <div class="nav-label">Account</div>
+            <nav class="nav-links">
+                {% if session.get('user_id') %}
+                    <a href="{{ url_for('logout') }}">↪ Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">Login</a>
+                    <a href="{{ url_for('register') }}">Register</a>
+                {% endif %}
+            </nav>
+        </div>
+    </aside>
+
+    <div class="main-area">
+        <header class="topbar">
+            <div class="topbar-title">
+                {% block page_heading %}Workspace{% endblock %}
+            </div>
+
+            {% if session.get('user_id') %}
+            <div class="user-chip">
+                <span class="avatar">
+                    {{ session.get('name', 'U')[0]|upper }}
+                </span>
+                <span>{{ session.get('name', 'User') }}</span>
+            </div>
+            {% endif %}
+        </header>
+
+        <main class="page-content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+</div>
+
+</body>
+</html>
